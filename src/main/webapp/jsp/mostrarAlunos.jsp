@@ -6,8 +6,8 @@
 <%@ page import="br.edu.exemplo.model.Aluno"%>
 
 <!DOCTYPE html>
-<html class="text-bg-dark p-3">
-<div class="text-bg-dark p-3">
+<html>
+
 <head>
 <title>Lista Alunos</title>
 
@@ -17,7 +17,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
 </head>
-<body>
+<body class="text-bg-dark p-3">
 <jsp:useBean id="aluno" scope="session" class="br.edu.exemplo.model.Aluno" />
 <!-- Barra de controle -->
 <ul class="nav nav-tabs nav justify-content">
@@ -29,6 +29,9 @@
   <li class="nav-item">
     <a class="nav-link active" href="html/incluir.html">Incluir Aluno</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="html/consultar.html">Consultar Aluno</a>
+  </li>
 </ul>
 <!-- Tabela onde contém as informações -->
 	<table class="table table-sm">
@@ -37,8 +40,9 @@
 				<h5><center>Lista de Alunos</center></h5>
 			</th>
 		</tr>
+		
 		<tr>
-			<th>ID - Atualizar</th>
+			<th>RA</th>
 			<th>Nome</th>
 			<th>Endereço</th>
 			<th>E-mail</th>
@@ -46,7 +50,6 @@
 			<th>Periodo</th>
 			<th colspan="2">Status</th>
 		</tr>
-		
 		
 		<%SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
 		List<Aluno> lista = new ArrayList<Aluno>();
@@ -61,17 +64,28 @@
 			<td><%=data.format(a.getDataNascimento())%></td>
 			<td><%=a.getPeriodo()%></td>
 			
-			<td><a href="ServletAluno?cmd=atualizar">
-			<img src="images/editar.png" width = "25px" height = "25px"></a></td>
+			<td>
+			<form action="ServletAluno?cmd=atu&txtRa=<%=a.getRa()%>" method="post">
+			<input type="hidden" size="10" value="Enviar">
+             <button type="submit" class="btn btn-outline-secondary">
+			<img src="images/editar.png" width = "25px" height = "25px">
+			</button>
+			</form>
+			</td>
 			
-			<td><a href = "ServletAluno?cmd=excluir">
-			<img src="images/excluir.png" width = "25px" height = "25px"></a></td>
-			
+			<td>
+			<form action="ServletAluno?cmd=excluir&txtRa=<%=a.getRa()%>" method="post">
+			<input type="hidden" size="10" value="Enviar">
+             <button type="submit" class="btn btn-outline-secondary">
+			<img src="images/excluir.png" width = "25px" height = "25px" > 
+			</button>
+			</form>
+			</td>
 		</tr>
 		<% } %>
 		
 	</table>
 </body>
-</div>
+
 </html>
 
